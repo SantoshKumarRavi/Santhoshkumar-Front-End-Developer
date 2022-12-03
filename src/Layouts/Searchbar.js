@@ -3,7 +3,7 @@ import { DataConsumer } from '../UseAuth/UseData'
 
 const Searchbar = () => {
   const datavalue=DataConsumer()
-  console.log("search data",datavalue)
+  // console.log("search data",datavalue)
   const [data,setdata]=useState({
     status:"",
     original_launch:"",
@@ -14,7 +14,7 @@ e.preventDefault();
 let contextdata=datavalue?.data?.datas
 // let fileteredarray=
 const {status,original_launch,type}=data
-console.log("clicked folter",contextdata)
+// console.log("clicked folter",contextdata)
 let Statusregex=new RegExp(`${status}`) 
 let launchregex=new RegExp(`${original_launch}`) 
 let typeregex=new RegExp(`${type}`) 
@@ -24,7 +24,6 @@ contextdata=contextdata.filter((objele)=>{
     value=objele
   }
   return value
-
 })
 console.log("filtered data ==>",contextdata)
 }

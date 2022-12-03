@@ -10,6 +10,7 @@ import { AuthProvider } from "../src/UseAuth/UseAuth";
 import Signup from "./Signup/Signup";
 import Login from "./Login/Login";
 import Home from "./Home/Home";
+import { DataProvider } from '../src/UseAuth/UseData'
 function App() {
   return (
     <Router>
@@ -27,9 +28,11 @@ function App() {
           <Route
           path="/Home"
           element={
+            <DataProvider>
             <AuthProvider>
               <Home />
             </AuthProvider>
+            </DataProvider>
           }
         />
   
