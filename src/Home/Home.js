@@ -3,30 +3,38 @@ import Banner from '../Layouts/Banner'
 import Searchbar from '../Layouts/Searchbar'
 import Gridlayout from '../Layouts/Gridlayout'
 import {AuthConsumer} from "../UseAuth/UseAuth"
+import { DataProvider } from '../UseAuth/UseData'
+// import { DataConsumer } from '../UseAuth/UseData'
 import Logout from '../Logout/Logout'
 import {useNavigate} from "react-router-dom"
 
 const Home = () => {
   const value = AuthConsumer();
-  const Navigate=useNavigate()
+  // const datavalue=DataConsumer()
+  // console.log("datavalue in home",datavalue)
 
+  const Navigate=useNavigate()
+// const[fetcheddata,setfetcheddata]=useState({})
   console.log("access token",value?.accesstoken)
   function logout(){
     value.setValue("")
     Navigate("/login")
   }
+ 
   useEffect(()=>{
     if (value.accesstoken === "") {
-      Navigate("/login");
+      // Navigate("/login"); //as of now commented for css 
     }
   },[Navigate,value?.accesstoken])
   return (
+    <DataProvider>
     <div>
     <Logout functionality={logout}/>
     <Banner/>
     <Searchbar/>
     <Gridlayout/>
     </div>
+    </DataProvider>
   )
 }
 
