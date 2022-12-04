@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Logout = ({functionality}) => {
+const Logout = ({functionality,classname}) => {
   return (
     <>
-    <button onClick={()=>functionality()}>Logout</button>
+    <button className={classname} onClick={()=>functionality()}>Logout</button>
     </>
   )
 }

@@ -6,6 +6,8 @@ export function DataProvider({ children }) {
   const [data,setdata] = useState({});
   const [pageArray,setpageArray] = useState({});
   const[showdetails,setShowdetails]=useState({})
+  const[showsearchdetails,setShowSearchdetails]=useState({})
+
 
   useEffect(()=>{
     fetch('https://api.spacexdata.com/v3/capsules',{
@@ -42,7 +44,9 @@ export function DataProvider({ children }) {
     setdata,
     totalpage:pageArray,
     showdetails,
-    setShowdetails
+    setShowdetails,
+    showsearchdetails,
+    setShowSearchdetails
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }

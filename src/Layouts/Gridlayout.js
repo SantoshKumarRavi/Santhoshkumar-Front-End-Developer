@@ -3,7 +3,6 @@ import { DataConsumer } from '../UseAuth/UseData'
 import "../App.css"
 const Gridlayout = () => {
   const datavalue=DataConsumer()
-  console.log("grid data",datavalue)
   const[page,setpage]=useState(1)
   // const[totalpages,settotalpages]=useState({})
   // const[filteredpagedata,setfilteredpagedata]=useState({})
@@ -12,6 +11,11 @@ const Gridlayout = () => {
   function changepage(e){
     setpage( e.target.id)
   }
+
+  console.log("grid 1", datavalue.data?.datas)
+  console.log("grid data 2",(datavalue.showsearchdetails?.data))
+
+
   function showpopup(e){
     console.log("clicked show opo up")
   const id=(e.target.id)
@@ -43,7 +47,6 @@ const Gridlayout = () => {
       }
     };
     if( datavalue.showdetails?.data){
-      console.log("activeted")
       setTimeout(()=>{
         document.addEventListener("click", handleClickOutside,false);
       },1000)
@@ -55,18 +58,20 @@ const Gridlayout = () => {
 
   return (
     <>
-    <div>
       <div className='grid_container'>
-      {datavalue?.data?.datas?.slice(((page*10)-10),page*10).map((x,i)=><div onClick={(e)=>showpopup(e)} id={x.capsule_serial} key={i}>{x.status}</div>)
+         {
+       (!(datavalue.showsearchdetails?.data)||(datavalue.showsearchdetails?.data?.length===0))&& datavalue?.data?.datas?.slice(((page*10)-10),page*10).map((x,i)=><div onClick={(e)=>showpopup(e)} id={x.capsule_serial} key={i}>{x.status}</div>)
         }
          {
-          datavalue.showdetails?.data?.map((eleobj,i)=><div ref={popref} className='popup'  key={i}>{eleobj.status}</div>)
+         datavalue.showdetails?.data?.map((eleobj,i)=><div ref={popref} className='popup'  key={i}>{eleobj.status}</div>)
+        }
+        {(datavalue.showsearchdetails?.data)&& 
+        datavalue?.showsearchdetails?.data?.slice(((page*10)-10),page*10).map((x,i)=><div onClick={(e)=>showpopup(e)} id={x.capsule_serial} key={i}>{x.status}</div>)
         }
       </div>
         {
           datavalue?.totalpage?.datas?.map((x,i)=><div id={x} onClick={(e)=>changepage(e)} key={i}>{x}</div>)
         }
-    </div>
     </>
   )
 }

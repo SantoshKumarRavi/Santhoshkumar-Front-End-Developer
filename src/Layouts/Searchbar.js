@@ -12,12 +12,21 @@ const Searchbar = () => {
 function filterdata(e){
 e.preventDefault();
 let contextdata=datavalue?.data?.datas
-// let fileteredarray=
 const {status,original_launch,type}=data
-// console.log("clicked folter",contextdata)
 let Statusregex=new RegExp(`${status}`) 
 let launchregex=new RegExp(`${original_launch}`) 
 let typeregex=new RegExp(`${type}`) 
+
+if((status==="")&& (original_launch==="")&& (type==="")){
+  datavalue.setShowSearchdetails({})
+  // console.log("empty filtyered ==>",datavalue.data.datas)
+  // datavalue.setdata(()=>{
+  //   return{
+  //     datas:datavalue.data.datas
+  //   }
+  // })
+}
+
 contextdata=contextdata.filter((objele)=>{
   let value=0
   if((status!==""&&Statusregex.test(objele.status))&&(original_launch!==""&&launchregex.test(objele.original_launch))&&(type!==""&&typeregex.test(objele.type))){
@@ -25,7 +34,12 @@ contextdata=contextdata.filter((objele)=>{
   }
   return value
 })
-console.log("filtered data ==>",contextdata)
+datavalue.setShowSearchdetails(()=>{
+  return{
+    data:contextdata
+  }
+})
+// console.log("filtered data ==>",contextdata)
 }
 
 function processingdata(e){
@@ -36,13 +50,15 @@ function processingdata(e){
 const{status,original_launch,type}=data
   return (
     <>
-    <div>
+    <div className='search-bar-wrapper'>
       <h2>Make decision based on Datas</h2>
       <form  onSubmit={(e)=>filterdata(e)} >
-        <input value={status} onChange={(e)=>processingdata(e)}  type={"text"} name={"status"} placeholder="status"/>
-        <input value={original_launch} onChange={(e)=>processingdata(e)} type={"text"} name={"original_launch"}  placeholder="original_launch"/>
-        <input value={type} onChange={(e)=>processingdata(e)} type={"text"} name={"type"}  placeholder="type"/>
-        <input type={"submit"} value="Search"/>
+        <div className='form-input-wrapper'>
+        <input className='form-input' value={status} onChange={(e)=>processingdata(e)}  type={"text"} name={"status"} placeholder="    Status"/>
+        <input className='form-input'  value={original_launch} onChange={(e)=>processingdata(e)} type={"text"} name={"original_launch"}  placeholder="    Original_launch"/>
+        <input  className='form-input' value={type} onChange={(e)=>processingdata(e)} type={"text"} name={"type"}  placeholder="    Type"/>
+        <input className='form-input form-input-submit' type={"submit"} value="Search"/>
+        </div>
     </form>
     
     </div>

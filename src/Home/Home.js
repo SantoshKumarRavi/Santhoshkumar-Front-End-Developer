@@ -15,29 +15,32 @@ const Home = () => {
 
   const Navigate=useNavigate()
 // const[fetcheddata,setfetcheddata]=useState({})
-  console.log("access token",value?.accesstoken)
   function logout(){
-    value.setValue("")
+    value.setaccesstoken(()=>{})
     Navigate("/login")
   }
  
   useEffect(()=>{
-    if (value.accesstoken === "") {
-      Navigate("/login"); //as of now commented for css 
+    if ((value.accesstoken===undefined)) {
+      Navigate("/login");
     }
-  },[Navigate,value?.accesstoken])
+  console.log("access token not",value)
+
+  },[Navigate,value])
   return (
-    // <DataProvider>
+    <>
     <div className="page-wrapper">
     {datavalue?.showdetails?.data &&<div className={(datavalue?.showdetails?.data?.length!==undefined)?"opacity":""}>
 
     </div>}
-    <Logout functionality={logout}/>
+    <div className='banner-logout-wrapper'>
+    <Logout classname={'logout-btn'} functionality={logout}/>
     <Banner/>
+    </div>
+    </div>
     <Searchbar/>
     <Gridlayout/>
-    </div>
-    // </DataProvider>
+    </>
   )
 }
 

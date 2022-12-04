@@ -34,7 +34,8 @@ function loginuser(e){
                 setdata(()=>updated)
             }else{
                 console.log("successs ",result)
-                values.setValue(result.jwt_token)
+                values.setaccesstoken(()=>{
+                    return {token:result.jwt_token}})
                 Navigate("/Home")
             }
     })

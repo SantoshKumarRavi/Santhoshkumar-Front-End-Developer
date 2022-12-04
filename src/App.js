@@ -28,11 +28,12 @@ function App() {
           <Route
           path="/Home"
           element={
-            <DataProvider>
             <AuthProvider>
+            <DataProvider>
               <Home />
-            </AuthProvider>
             </DataProvider>
+            </AuthProvider>
+
           }
         />
   
