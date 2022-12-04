@@ -17,10 +17,10 @@ const Gridlayout = () => {
 
 
   function showpopup(e){
-    console.log("clicked show opo up")
   const id=(e.target.id)
     let filterpopup=[...datavalue?.data?.datas]
     // console.log("filtered",filterpopup)
+    // console.log("clicked show opo up",e.target)
 
     filterpopup=filterpopup.filter((ele)=>{
       let value=0
@@ -49,7 +49,7 @@ const Gridlayout = () => {
     if( datavalue.showdetails?.data){
       setTimeout(()=>{
         document.addEventListener("click", handleClickOutside,false);
-      },1000)
+      },0)
     }
     return () => {
       document.removeEventListener("click", handleClickOutside, false);
@@ -60,18 +60,43 @@ const Gridlayout = () => {
     <>
       <div className='grid_container'>
          {
-       (!(datavalue.showsearchdetails?.data)||(datavalue.showsearchdetails?.data?.length===0))&& datavalue?.data?.datas?.slice(((page*10)-10),page*10).map((x,i)=><div onClick={(e)=>showpopup(e)} id={x.capsule_serial} key={i}>{x.status}</div>)
+       (!(datavalue.showsearchdetails?.data)||(datavalue.showsearchdetails?.data?.length===0))&& datavalue?.data?.datas?.slice(((page*10)-10),page*10).map((x,i)=><div onClick={(e)=>showpopup(e)} className={"grid-content-box"} id={x.capsule_serial} key={i}>
+        <p><span className='parallel'>Capsule_serial : </span>{x.capsule_serial}</p>
+        <p>
+        <span className='parallel'>Capsule_id : </span>{x.capsule_id}</p>
+        <p><span className='parallel'>Status : </span>{x.status}</p>
+       </div>)
         }
          {
-         datavalue.showdetails?.data?.map((eleobj,i)=><div ref={popref} className='popup'  key={i}>{eleobj.status}</div>)
+         datavalue.showdetails?.data?.map((x,i)=><div ref={popref} className='grid-content-box popup'  key={i}>
+        <p><span className='parallel'>Capsule_serial : </span>{x.capsule_serial}</p>
+        <p>
+        <span className='parallel'>Capsule_id : </span>{x.capsule_id}</p>
+        <p><span className='parallel'>Status : </span>{x.status}</p>
+        <p><span className='parallel'>Landings : </span>{x.landings}</p>
+        <p><span className='parallel'>Reuse_count : </span>{x.reuse_count}</p>
+
+          </div>)
         }
         {(datavalue.showsearchdetails?.data)&& 
-        datavalue?.showsearchdetails?.data?.slice(((page*10)-10),page*10).map((x,i)=><div onClick={(e)=>showpopup(e)} id={x.capsule_serial} key={i}>{x.status}</div>)
+        datavalue?.showsearchdetails?.data?.slice(((page*10)-10),page*10).map((x,i)=><div onClick={(e)=>showpopup(e)} className={datavalue?.showsearchdetails?.data?.length<5?"grid-content-box less-qty-grid-content-box":"grid-content-box"}  id={x.capsule_serial} key={i}>
+              <p><span className='parallel'>Capsule_serial : </span>{x.capsule_serial}</p>
+        <p>
+        <span className='parallel'>Capsule_id : </span>{x.capsule_id}</p>
+        <p><span className='parallel'>Status : </span>{x.status}</p>
+          </div>)
         }
       </div>
-        {
-          datavalue?.totalpage?.datas?.map((x,i)=><div id={x} onClick={(e)=>changepage(e)} key={i}>{x}</div>)
+      <div className='total-page-wrapper'>
+        {/* <div className='page-wrapper'> */}
+        <div className={"page-box"} >⬅</div>
+      {
+          datavalue?.totalpage?.datas?.map((x,i)=><div id={x} className={"page-box"} onClick={(e)=>changepage(e)} key={i}>{x}</div>)
         }
+                <div className={"page-box"} >➡</div>
+        {/* </div> */}
+      </div>
+        
     </>
   )
 }

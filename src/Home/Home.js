@@ -29,9 +29,10 @@ const Home = () => {
   },[Navigate,value])
   return (
     <>
+    <div className="main-page-wrapper">
     <div className="page-wrapper">
     {datavalue?.showdetails?.data &&<div className={(datavalue?.showdetails?.data?.length!==undefined)?"opacity":""}>
-
+        
     </div>}
     <div className='banner-logout-wrapper'>
     <Logout classname={'logout-btn'} functionality={logout}/>
@@ -40,6 +41,7 @@ const Home = () => {
     </div>
     <Searchbar/>
     <Gridlayout/>
+    </div>
     </>
   )
 }
